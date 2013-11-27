@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 public class Player {
+	
     private int k_dice;
     private ArrayList<Dice> dices;
     private int score;
@@ -17,7 +18,11 @@ public class Player {
         }
     }
 
-    public int getK_dice() {
+    public void setScore(int score) {
+		this.score += score;
+	}
+
+	public int getK_dice() {
         return k_dice;
     }
 

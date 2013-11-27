@@ -7,21 +7,21 @@
     <RelativeLayout
         android:id="@+id/fragmeent_container_score"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" >
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/text_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="Счет: " />
 
         <TextView
             android:id="@+id/text_number_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/text_score"
             android:layout_toRightOf="@id/text_score" />
 
         <TextView
@@ -37,6 +37,8 @@
             android:id="@+id/text_number_round"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/text_round"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/text_round" />
     </RelativeLayout>
 
@@ -44,7 +46,7 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10" />
+        android:layout_marginTop="15dp"/>
 "
 
 </LinearLayout>

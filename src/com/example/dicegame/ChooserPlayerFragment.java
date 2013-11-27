@@ -2,6 +2,7 @@ package com.example.dicegame;
 
 import java.util.Arrays;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,7 +17,8 @@ import android.widget.TextView;
 
 public class ChooserPlayerFragment extends Fragment {
 
-	public static String TAG = "com.example.dicegame.ChooserPlayerFragment";
+	public static final String TAG = "ChooserPlayerFragment";
+	public static final String EXTRA_DICES = "EXTRA_DICES";
 
 	TextView mPlayerName;
 	Player mPlayer;
@@ -24,7 +26,7 @@ public class ChooserPlayerFragment extends Fragment {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		if (MainGame.ROUND % 2 != 0) {
+		if (GameStorage.ROUND % 2 != 0) {
 			mPlayer = GameStorage.players.get(0);
 		} else {
 			mPlayer = GameStorage.players.get(1);
@@ -36,12 +38,12 @@ public class ChooserPlayerFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_choose_player, null);
-
 		LinearLayout ll = (LinearLayout) v
 				.findViewById(R.id.linearlayout_chooser);
 
 		mPlayerName = (TextView) v.findViewById(R.id.chooser_player);
-		mPlayerName.setText("Player " + MainGame.ROUND % 2);
+		int player = GameStorage.ROUND % 2 != 0 ? 1: 2;
+		mPlayerName.setText("Player " + player);
 
 		final EditText[] idTextFields = new EditText[GameStorage.badDice];
 		final EditText[] idVergeTextFields = new EditText[GameStorage.badDice];
@@ -65,9 +67,6 @@ public class ChooserPlayerFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				for (int i = 0; i < GameStorage.badDice; i++) {
-					Dice dice = mPlayer.getDices().get(
-							Integer.parseInt(idTextFields[i].getText()
-									.toString()) - 1);
 					double[] h = new double[6];
 					for (int j = 0; j < h.length; j++) {
 						if (j == Integer.parseInt(idVergeTextFields[i]
@@ -82,14 +81,19 @@ public class ChooserPlayerFragment extends Fragment {
 											.toString())) / 5;
 						}
 					}
-					dice.set(h);
+					mPlayer.getDices()
+							.get(Integer.parseInt(idTextFields[i].getText()
+									.toString()) - 1).set(h);
+					GameStorage.players.set(GameStorage.ROUND % 2 != 0? 0 : 1, mPlayer);
 				}
-				for (int i = 0; i < GameStorage.badDice; i++) {
+				for (int i = 0; i < GameStorage.numberOfDice; i++) {
 					Log.d(TAG,
-							Arrays.toString(mPlayer.getDices().get(i)
+							Arrays.toString(GameStorage.players.get(GameStorage.ROUND % 2 != 0 ? 0 : 1).getDices().get(i)
 									.getVerge()));
 				}
-
+				Intent intent = new Intent();
+				intent.setClass(getActivity(), ThrowPlayerActivity.class);
+				startActivity(intent);
 			}
 		});
 

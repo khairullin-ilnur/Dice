@@ -4,7 +4,7 @@ public class Dice {
     private double[] verge;
 
     public Dice() {
-        verge = new double[]{0.166, 0.166, 0.166, 0.166, 0.166};
+        verge = new double[]{0.166, 0.166, 0.166, 0.166, 0.166, 0.166};
     }
 
     public double[] getVerge() {

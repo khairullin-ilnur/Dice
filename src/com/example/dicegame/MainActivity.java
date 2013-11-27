@@ -26,8 +26,9 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				GameStorage.players.add(new Player(Integer.parseInt(s.toString())));
-				GameStorage.players.add(new Player(Integer.parseInt(s.toString())));
+				GameStorage.numberOfDice = Integer.valueOf(s.toString());
+				GameStorage.players.add(new Player(GameStorage.numberOfDice));
+				GameStorage.players.add(new Player(GameStorage.numberOfDice));
 				
 			}
 			
@@ -40,7 +41,6 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
 	
 	
 		mPlayButton = (Button) findViewById(R.id.button_play_new_game);
-		final Intent i = new Intent(MainActivity.this, MainGame.class);
+		final Intent i = new Intent(MainActivity.this, ChoosePlayerActivity.class);
 		mPlayButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
